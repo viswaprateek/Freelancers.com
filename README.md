@@ -1,5 +1,6 @@
 ﻿# Freelancers.com
 
+Make sure to install nodejs in your system before running any of the commands:
 
 ## Frontend
 
