@@ -103,13 +103,13 @@ export const signup = async ({ email, password, name, role, bio, skills, portfol
  */
 export const loginuser = async (name, password) => {
   try {
-    // console.log(username)
     const response = await api.post('/user-api/auth/login', { name, password });
     return response.data; // Return the response data if the login is successful.
   } catch (error) {
     throw error; // Throw an error if the login request fails.
   }
 };
+
 
 /**
  * Function to change the user's password.
@@ -161,6 +161,7 @@ export const getJobs = async () => {
 export const getspecificJobs = async (userId) => {
   try {
     const response = await api.get(`/job/user/${userId}`); // Assuming the backend endpoint is /job/user/:userId
+ 
     return response.data;
   } catch (error) {
     throw error;
@@ -168,29 +169,38 @@ export const getspecificJobs = async (userId) => {
 };
 
 // Function to save a new job
-export const saveJob = async (jobData, userId) => {
+export const saveJob = async (jobData, token) => {
   try {
-    // Include userId in the request payload
-    const response = await api.post('/job/save', { ...jobData, userId });
-    return response.data;
+      const response = await api.post('/job/new', jobData, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+      return response.data;
   } catch (error) {
-    throw error;
+      throw error;
   }
 };
+
+
 
 
 // Function to update a job
 export const updateJob = async (jobId, updatedData) => {
   try {
-    const response = await api.put(`/job/save?${jobId}`, updatedData);
+    // Correctly format the URL to include jobId as a path parameter, not a query string
+    const response = await api.put(`/job/save/${jobId}`, updatedData); // Adjusted the endpoint to match typical REST API conventions
     return response.data;
   } catch (error) {
+    console.error('Error updating job:', error);
     throw error;
   }
 };
 
+
 // Function to delete a job
 export const deleteJob = async (jobId) => {
+  console.log(jobId)
   try {
     const response = await api.delete(`/job/delete/${jobId}`);
     return response.data;
@@ -213,7 +223,7 @@ export const getJobById = async (jobId) => {
 
 export const getBidsByJobId = async (jobId) => {
   try {
-    const response = await api.get(`/job/bids/${jobId}`);
+    const response = await api.get(`/bids/job/${jobId}`);
     console.log(response.data)
     return response.data;
   } catch (error) {
@@ -222,15 +232,15 @@ export const getBidsByJobId = async (jobId) => {
   }
 };
 
-export const postBid = async (bidData) => {
-  try {
-    const response = await api.post('/job/save', bidData);
-    return response.data;
-  } catch (error) {
-    console.error('Error posting bid:', error);
-    throw error;
-  }
-};
+// export const postBid = async (bidData) => {
+//   try {
+//     const response = await api.post('/job/save', bidData);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error posting bid:', error);
+//     throw error;
+//   }
+// };
 
 export const acceptBid = async (bidId) => {
   try {
@@ -239,6 +249,15 @@ export const acceptBid = async (bidId) => {
   } catch (error) {
     console.error('Error accepting bid:', error);
     throw error;
+  }
+};
+export const getJobByIdWithBids = async (jobId) => {
+  try {
+      const response = await api.get(`/job/view/${jobId}`);
+      return response.data;
+  } catch (error) {
+      console.error('Error fetching job with bids:', error);
+      throw error;
   }
 };
 export const closeBid = async (bidId) => {
@@ -341,6 +360,55 @@ export const sendChatMessage = async (messageData) => {
     throw error; // Throw an error if the bid submission request fails.
   }
 };
+export const getContractsByUser = async (userId) => {
+  console.log(userId)
+  try {
+    // Check if userId is present
+    if (!userId) {
+      throw new Error('No user ID provided');
+    }
+    const response = await api.get(`/contracts/user/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch contracts', error);
+    throw error;
+  }
+};
+
+// In your API management file (e.g., api.js)
+export const getContractById = async (contractId) => {
+  try {
+    const response = await api.get(`/contracts/${contractId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching contract by ID', error);
+    throw error;
+  }
+};
+// api.js
+
+export const getMessagesByContract = async (contractId) => {
+  try {
+      const response = await api.get(`/messages/${contractId}`);
+      return response.data;
+  } catch (error) {
+      console.error('Failed to fetch messages:', error);
+      throw error;
+  }
+};
+
+export const postMessage = async (messageData) => {
+  try {
+      const response = await api.post('/messages/', messageData);
+      return response.data;
+  } catch (error) {
+      console.error('Failed to post message:', error);
+      throw error;
+  }
+};
+
+
+
 
 
 // Note: This code defines functions for making API requests using Axios. Each function sends a request to a specific endpoint and returns the response data if the request is successful or throws an error if it fails.
