@@ -25,7 +25,6 @@ const UserDashboard = () => {
         <Box sx={{ mb: 3 }}>
           <Typography variant="h6">Quick Access</Typography>
           <Button component={Link} to="/user/jobs" sx={{ mr: 1 }}>View Jobs</Button>
-          <Button component={Link} to="/user/bids">View Bids</Button>
           <Button component={Link} to="/user/myjobs" sx={{ ml: 1 }}>View Contracts</Button>
         </Box>
 

@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import ViewJob from '../components/ViewJob';
 import BidsComponent from '../components/BidsComponent'; // Import the BidsComponent
 import Layout from '../components/Layout';
-import Feedback from '../components/Feedback';
+// import Feedback from '../components/Feedback';
 import { useAuth } from '../AuthContext';
 import PlaceBidForm from '../components/PlaceBidForm'; // Import the new component
-import ChatBox from '../components/ChatBox';
+// import ChatBox from '../components/ChatBox';
 import { getJobById } from '../api'; // Make sure you have this function to fetch job details
 
 const JobDetailPage = () => {
@@ -41,9 +41,7 @@ const JobDetailPage = () => {
         <BidsComponent jobId={id} jobStatus={job.status} />
         
         {userRole === 'FREELANCER' && <PlaceBidForm jobId={id} />}
-        {userRole === 'CLIENT' && 
-          <ChatBox jobId={id} />
-        }
+        
 
         {/* Conditionally render Feedback based on requirements */}
         {/* <Feedback /> */}

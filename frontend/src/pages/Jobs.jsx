@@ -6,6 +6,8 @@ import { Button } from '@mui/material';
 import GetJobs from '../components/GetJobs'; // Adjust the import path as needed
 import { useAuth } from '../AuthContext'; // Import the useAuth hook
 
+
+
 const Jobs = () => {
   const { userRole } = useAuth(); // Get userRole from AuthContext
     const [jobs, setJobs] = useState([]);
@@ -36,3 +38,4 @@ const Jobs = () => {
 };
 
 export default Jobs;
+

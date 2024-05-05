@@ -17,15 +17,22 @@ const GetJobs = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
+      if (!userRole || !userId) {
+        console.log('User details not loaded yet');
+        return; // Exit if user details aren't loaded
+      }
+     
       try {
         const fetchedJobs = userRole === 'CLIENT' ? await getspecificJobs(userId) : await getJobs();
         setJobs(fetchedJobs);
       } catch (error) {
         console.error('Error fetching jobs:', error);
-      }
+      } 
     };
+
     fetchJobs();
   }, [userRole, userId]);
+
 
   const openEditModal = job => {
     setSelectedJob(job);
@@ -73,7 +80,7 @@ const GetJobs = () => {
                   <>
                      
                       <IconButton onClick={() => openEditModal(job)} color="primary"><EditIcon /></IconButton>
-                      <IconButton onClick={() => openDeleteDialog(job._id)} color="error"><DeleteIcon /></IconButton>
+                      <IconButton onClick={() => openDeleteDialog(job)} color="error"><DeleteIcon /></IconButton>
                   </>
               )}
               {job.status === 'closed' && userRole === 'CLIENT' && (
