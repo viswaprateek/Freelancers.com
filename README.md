@@ -41,7 +41,7 @@ To run the backend, follow these steps:
     npm run dev (or)
     nodemon server.js (or)
     node --watch server.js
-    ```
+    
 
 ## Environment Variables
 
