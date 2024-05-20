@@ -34,9 +34,17 @@ To run the backend, follow these steps:
     ```
     npm i
     ```
+    
 
 3. Start the server with file watching enabled:
     ```
+    npm run dev (or)
+    nodemon server.js (or)
     node --watch server.js
     ```
+
+## .env
+MONGO_URI="mongodb+srv://viswaprateek248:<password>@cluster0.2ajhbbl.mongodb.net/"
+Port=4000
+JWT_SECRET="abcdefgh"
 
