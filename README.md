@@ -41,7 +41,7 @@ To run the backend, follow these steps:
     npm run dev (or)
     nodemon server.js (or)
     node --watch server.js
-    
+    ```
 
 ## Environment Variables
 
@@ -51,5 +51,6 @@ Make sure to create a `.env` file in the root of your project backend with the f
 MONGO_URI="mongodb+srv://viswaprateek248:<password>@cluster0.2ajhbbl.mongodb.net/"
 PORT=4000
 JWT_SECRET="abcdefgh"
+```
 
 
